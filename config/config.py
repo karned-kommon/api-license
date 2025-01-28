@@ -16,5 +16,5 @@ DB_HOST = 'localhost'
 DB_PORT = 27017
 DB_URL = f"mongodb://{DB_HOST}:{DB_PORT}"
 DB_DATABASE = "local"
-DB_NAME = "user"
+DB_NAME = "licence"
 ITEM_REPO = ItemRepositoryMongo(url=DB_URL, name=DB_DATABASE, collection=DB_NAME)
