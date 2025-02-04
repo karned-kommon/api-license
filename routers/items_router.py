@@ -19,12 +19,13 @@ router = APIRouter(
 @router.get("/purchase", status_code=status.HTTP_200_OK, response_model=list[Item])
 async def purchase(
         request: Request,
+        name: str | None = None,
         repo=Depends(get_repo),
-        name: Optional[str] = Query(None, description="Name of License"),
-):
-    filters = {k: v for k, v in {
-        "name": name,
-    }.items() if v is not None}
+    ):
+
+    filters = {
+        "name": name
+    }
 
     return get_items(filters, repo)
 

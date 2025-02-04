@@ -1,3 +1,5 @@
+import logging
+
 from schemas.historical_schema import list_historical_serial
 from schemas.sales_schema import list_sales_serial
 
@@ -21,4 +23,6 @@ def item_serial(item) -> dict:
 
 
 def list_item_serial(items) -> list:
+    logging.info(f"items {items}")
+
     return [item_serial(item) for item in items]
