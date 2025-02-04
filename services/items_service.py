@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import HTTPException
 from models.item_model import Item
 

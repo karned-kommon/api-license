@@ -25,7 +25,7 @@ PAID + ACTIVE + UNASSIGNED
   ],
   "auto_renew": true,
   "credential_uuid": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t",
-  "entity_uuid": "h8i9j0k1-l2m3-n4o5-p6q7-r8s9t0"
+  "entity_uuid": "1234-5678-9101112-13141516"
 }
 
 PAID + ACTIVE + ASSIGNED
@@ -55,7 +55,7 @@ PAID + ACTIVE + ASSIGNED
   ],
   "auto_renew": true,
   "credential_uuid": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t",
-  "entity_uuid": "h8i9j0k1-l2m3-n4o5-p6q7-r8s9t0"
+  "entity_uuid": "1234-5678-9101112-13141516"
 }
 
 PENDING
@@ -85,7 +85,7 @@ PENDING
   ],
   "auto_renew": true,
   "credential_uuid": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t",
-  "entity_uuid": "h8i9j0k1-l2m3-n4o5-p6q7-r8s9t0"
+  "entity_uuid": "1234-5678-9101112-13141516"
 }
 
 EXPIRED
@@ -115,5 +115,5 @@ EXPIRED
   ],
   "auto_renew": true,
   "credential_uuid": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t",
-  "entity_uuid": "h8i9j0k1-l2m3-n4o5-p6q7-r8s9t0"
+  "entity_uuid": "1234-5678-9101112-13141516"
 }

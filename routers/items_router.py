@@ -1,3 +1,4 @@
+import logging
 from typing import Optional
 from fastapi import APIRouter, HTTPException, Query, status, Depends, Request
 from datetime import datetime
@@ -87,6 +88,7 @@ async def expired_items(
             "$lt": now
         }
     }
+    logging.info(f"expired items {filters}")
     return get_items(filters, repo)
 
 @router.get("/pending", status_code=status.HTTP_200_OK, response_model=list[Item])
