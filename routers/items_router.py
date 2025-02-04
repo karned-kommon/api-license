@@ -1,6 +1,7 @@
 from typing import Optional
-
 from fastapi import APIRouter, HTTPException, Query, status, Depends, Request
+from datetime import datetime
+
 from config.config import API_TAG_NAME, ITEM_REPO
 from decorators.check_permission import check_permissions
 from models.item_model import Item
@@ -13,6 +14,108 @@ def get_repo():
 router = APIRouter(
     tags=[API_TAG_NAME]
 )
+
+
+@router.get("/purchase", status_code=status.HTTP_200_OK, response_model=list[Item])
+async def purchase(
+        request: Request,
+        repo=Depends(get_repo),
+        name: Optional[str] = Query(None, description="Name of License"),
+):
+    filters = {k: v for k, v in {
+        "name": name,
+    }.items() if v is not None}
+
+    return get_items(filters, repo)
+
+
+@router.post("/purchase/{type_uuid}", status_code=status.HTTP_201_CREATED)
+async def create_license(request: Request, repo=Depends(get_repo)):
+    license_uuid =  create_license(repo)
+
+    return {"license UUID": license_uuid}
+
+
+@router.get("/unassigned", status_code=status.HTTP_200_OK, response_model=list[Item])
+async def unassigned_items(
+        request: Request,
+        repo=Depends(get_repo)
+):
+    now = int(datetime.now().timestamp())
+    entity_uuid = request.state.entity_uuid
+    filters = {
+        "entity_uuid": {
+            "$eq": entity_uuid
+        },
+        "exp": {
+            "$lt": now
+        }
+    }
+    return get_items(filters, repo)
+
+@router.get("/assigned", status_code=status.HTTP_200_OK, response_model=list[Item])
+async def assigned_items(
+        request: Request,
+        repo=Depends(get_repo)
+):
+    now = int(datetime.now().timestamp())
+    entity_uuid = request.state.entity_uuid
+    filters = {
+        "entity_uuid": {
+            "$eq": entity_uuid
+        },
+        "exp": {
+            "$lt": now
+        }
+    }
+    return get_items(filters, repo)
+
+
+@router.get("/expired", status_code=status.HTTP_200_OK, response_model=list[Item])
+async def expired_items(
+        request: Request,
+        repo=Depends(get_repo)
+):
+    now = int(datetime.now().timestamp())
+    entity_uuid = request.state.entity_uuid
+    filters = {
+        "entity_uuid": {
+            "$eq": entity_uuid
+        },
+        "exp": {
+            "$lt": now
+        }
+    }
+    return get_items(filters, repo)
+
+@router.get("/pending", status_code=status.HTTP_200_OK, response_model=list[Item])
+async def pending_items(
+        request: Request,
+        repo=Depends(get_repo)
+):
+    now = int(datetime.now().timestamp())
+    entity_uuid = request.state.entity_uuid
+    filters = {
+        "entity_uuid": {
+            "$eq": entity_uuid
+        },
+        "exp": {
+            "$lt": now
+        }
+    }
+    return get_items(filters, repo)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
@@ -65,3 +168,5 @@ async def delete_existing_item(request: Request, uuid: str, repo=Depends(get_rep
 @check_permissions(['update'])
 async def reset_password(request: Request, item: Item, repo=Depends(get_repo)) -> dict:
     return {"return": 'TODO'}
+
+

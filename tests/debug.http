@@ -1,0 +1,17 @@
+POST http:///127.0.0.1:8004/
+Content-Type: application/json
+Authorization: Bearer totoken
+licence: a1b2c3d4-e5f6-7890-1234-567890abcdef
+
+{
+
+}
+
+###
+### Utilise la route / protégée
+GET http://127.0.0.1:8004/expired
+accept: application/json
+Authorization: Bearer totoken
+licence: a1b2c3d4-e5f6-7890-1234-567890abcdef
+
+

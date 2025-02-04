@@ -1,28 +1,30 @@
-from typing import Optional
-from pydantic import BaseModel, Field, field_validator, EmailStr
+from typing import Optional, List
+from pydantic import BaseModel, Field
+
+from models.sales_model import SalesModel
+from models.historical_model import HistoricalModel
+
 
 class Item(BaseModel):
-    uuid: str = Field(..., description="User : UUID")
-    username: str = Field(..., description="User : username")
-    firstname: Optional[str] = Field(None, description="User : firstname")
-    lastname: Optional[str] = Field(None, description="User : lastname")
-    email: EmailStr = Field(..., description="User : email")
-    created_by: Optional[str] = Field(None, description="User who created this step")
+    uuid: str = Field(..., description="License : UUID")
+    type_uuid: str = Field(..., description="Type : UUID")
+    created_by: str = Field(..., description="Admin who created")
+    sales: List[SalesModel] = Field(..., description="License sales data")
+    name: str = Field(..., description="License name")
+    iat: int = Field(..., description="license iat")
+    exp: int = Field(..., description="License exp")
+    user_uuid: str = Field(..., description="User UUID")
+    manager_uuid: str = Field(..., description="Manager UUID")
+    historical: List[HistoricalModel] = Field(..., description="License assignment historical data")
+    auto_renew: bool = Field(default=True, description="Auto renew")
+    credential_uuid: str = Field(..., description="Credential UUID")
+    entity_uuid: str  = Field(..., description="Entity UUID")
 
-    @field_validator("lastname", mode="before")
-    def lastname_to_upper( cls, v ):
-        return v.upper() if v else None
 
-    @field_validator("firstname", mode="before")
-    def firstname_to_capitalize( cls, v ):
-        return v.capitalize() if v else None
 
-    @field_validator("email", mode="before")
-    def email_to_lower( cls, v ):
-        return v.lower() if v else None
 
-    @field_validator("username", mode="before")
-    def username_to_lower( cls, v ):
-        return v.lower() if v else None
+
+
+
 
 

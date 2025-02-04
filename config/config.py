@@ -16,5 +16,7 @@ DB_HOST = 'localhost'
 DB_PORT = 27017
 DB_URL = f"mongodb://{DB_HOST}:{DB_PORT}"
 DB_DATABASE = "local"
-DB_NAME = "licence"
+DB_NAME = "license"
 ITEM_REPO = ItemRepositoryMongo(url=DB_URL, name=DB_DATABASE, collection=DB_NAME)
+
+UNPROTECTED_PATHS = ['/favicon.ico', '/docs', '/openapi.json']

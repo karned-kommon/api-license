@@ -73,6 +73,7 @@ le produit sera proposé en différentes déclinaisons : à la journée (1), au 
 - user_uuid
 - historical (historique des affectations : iat, exp, user_id, manager_id)
 - auto_renew
+- entities_uuid (entreprise / asso  uuid)
 
 
 ## Routes

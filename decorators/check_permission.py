@@ -19,9 +19,9 @@ def check_permissions( permissions: List[str] ):
         @wraps(func)
         async def wrapper( request: Request, *args, **kwargs ):
             logging.info(f"Checking permissions {permissions}")
-            logging.info(f"User: {request}")
+            logging.info(f"License: {request}")
 
-            check_roles(request.state.token_info.get('user_roles'), permissions)
+            check_roles(request.state.token_info.get('license_roles'), permissions)
 
             return await func(request, *args, **kwargs)
 
