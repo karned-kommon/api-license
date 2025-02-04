@@ -1,0 +1,119 @@
+PAID + ACTIVE + UNASSIGNED
+{
+  "uuid": "a1b2c3d4-e5f6-7890-1234-557890abcdeg",
+  "type_uuid": "f1e2d3c4-a5b6-7890-1234-567890fedcba",
+  "created_by": "john.doe@example.com",
+  "sales": [
+    {
+      "uuid": "b2a3c4d5-e6f7-8901-2345-unassigned",
+      "date": "2024-02-04T14:36:14.561Z",
+      "status": "paid"
+    }
+  ],
+  "name": "Super Widget",
+  "iat": 1678886400,
+  "exp": 1879752000,
+  "user_uuid": "c3b4d5e6-f7g8-h9i0-j1k2-l3m4n5opqr",
+  "manager_uuid": "d4e5f6g7-h8i9-j0k1-l2m3-n4o5p6qrs",
+  "historical": [
+    {
+      "iat": 1678796800,
+      "exp": 1678883200,
+      "user_uuid": "e5f6g7h8-i9j0-k1l2-m3n4-o5p6qrf",
+      "manager_uuid": "f6g7h8i9-j0k1-l2m3-n4o5-p6q7r8s"
+    }
+  ],
+  "auto_renew": true,
+  "credential_uuid": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t",
+  "entity_uuid": "h8i9j0k1-l2m3-n4o5-p6q7-r8s9t0"
+}
+
+PAID + ACTIVE + ASSIGNED
+{
+  "uuid": "a1b2c3d4-e5f6-7890-1234-337890abcdeg",
+  "type_uuid": "f1e2d3c4-a5b6-7890-1234-567890fedcba",
+  "created_by": "john.doe@example.com",
+  "sales": [
+    {
+      "uuid": "b2a3c4d5-e6f7-8901-2345-assigned",
+      "date": "2025-01-01T14:36:14.561Z",
+      "status": "paid"
+    }
+  ],
+  "name": "Super Widget",
+  "iat": 1678886400,
+  "exp": 1879752000,
+  "user_uuid": "c3b4d5e6-f7g8-h9i0-j1k2-l3m4n5opqr",
+  "manager_uuid": "d4e5f6g7-h8i9-j0k1-l2m3-n4o5p6qrs",
+  "historical": [
+    {
+      "iat": 1678796800,
+      "exp": 1879752000,
+      "user_uuid": "e5f6g7h8-i9j0-k1l2-m3n4-o5p6qra",
+      "manager_uuid": "f6g7h8i9-j0k1-l2m3-n4o5-p6q7r8s"
+    }
+  ],
+  "auto_renew": true,
+  "credential_uuid": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t",
+  "entity_uuid": "h8i9j0k1-l2m3-n4o5-p6q7-r8s9t0"
+}
+
+PENDING
+{
+  "uuid": "a1b2c3d4-e5f6-7890-1234-564490abcdef",
+  "type_uuid": "f1e2d3c4-a5b6-7890-1234-567890fedcba",
+  "created_by": "john.doe@example.com",
+  "sales": [
+    {
+      "uuid": "b2a3c4d5-e6f7-8901-2345-unpaid",
+      "date": "2025-01-04T14:36:14.561Z",
+      "status": "unpaid"
+    }
+  ],
+  "name": "Super Widget",
+  "iat": 1678886400,
+  "exp": 1679752000,
+  "user_uuid": "c3b4d5e6-f7g8-h9i0-j1k2-l3m4n5opqr",
+  "manager_uuid": "d4e5f6g7-h8i9-j0k1-l2m3-n4o5p6qrs",
+  "historical": [
+    {
+      "iat": 1678796800,
+      "exp": 1678883200,
+      "user_uuid": "e5f6g7h8-i9j0-k1l2-m3n4-o5p6qrs",
+      "manager_uuid": "f6g7h8i9-j0k1-l2m3-n4o5-p6q7r8s"
+    }
+  ],
+  "auto_renew": true,
+  "credential_uuid": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t",
+  "entity_uuid": "h8i9j0k1-l2m3-n4o5-p6q7-r8s9t0"
+}
+
+EXPIRED
+{
+  "uuid": "a1b2c3d4-e5f6-7890-1234-777890abcdef",
+  "type_uuid": "f1e2d3c4-a5b6-7890-1234-567890fedcba",
+  "created_by": "john.doe@example.com",
+  "sales": [
+    {
+      "uuid": "b2a3c4d5-e6f7-8901-2345-paid",
+      "date": "2025-03-04T14:36:14.561Z",
+      "status": "paid"
+    }
+  ],
+  "name": "Super Widget",
+  "iat": 1678886400,
+  "exp": 1679752000,
+  "user_uuid": "c3b4d5e6-f7g8-h9i0-j1k2-l3m4n5opqr",
+  "manager_uuid": "d4e5f6g7-h8i9-j0k1-l2m3-n4o5p6qrs",
+  "historical": [
+    {
+      "iat": 1678796800,
+      "exp": 1678883200,
+      "user_uuid": "e5f6g7h8-i9j0-k1l2-m3n4-o5p6qrs",
+      "manager_uuid": "f6g7h8i9-j0k1-l2m3-n4o5-p6q7r8s"
+    }
+  ],
+  "auto_renew": true,
+  "credential_uuid": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t",
+  "entity_uuid": "h8i9j0k1-l2m3-n4o5-p6q7-r8s9t0"
+}
