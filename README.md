@@ -13,6 +13,8 @@ Les opérations d'affectation et de désaffectation de licences seront réalisé
 Les licences seront stockées dans une base de données.
 Toutes les heures un airflow listera les licences expirées pour les désactiver.
 
+la base de données des licences sera uniquement sur la base de données de Koden
+
 ## todo
 connexion à keycloak en mode public avec le client_id et client_secret
 
@@ -73,11 +75,22 @@ le produit sera proposé en différentes déclinaisons : à la journée (1), au 
 - user_uuid
 - historical (historique des affectations : iat, exp, user_id, manager_id)
 - auto_renew
+- credential_uuid : si pas de credentials alors on récupère celui par défaut au niveau de l'entity
 
+## credential
+Une API distincte s'occupera des credentials.
+On stockera dans le credential le mappage "table / collection" s'il existe.
+Je présente une licence, j'obtiens le credential associé à cette licence.
+- uuid
+- name
+- description
+- url
+- mappage
+- entity_uuid
 
 ## Routes
 
-/purchase
+GET /purchase
 lister les plans de licences disponibles à l'achat
 soit dans la base product les uuid groupé par type, ordonné par net_price
 {
@@ -88,62 +101,62 @@ soit dans la base product les uuid groupé par type, ordonné par net_price
     value
 }
 
-/purchase/{type_uuid}
+POST /purchase/{type_uuid}
 achat d'une licence. le paiement déclenchera la création de la licence.
 
-/unassigned
+GET /unassigned
 lister les licences non assignées à un utilisateur
 soit dans la base de données license celle dont user_uuid est vide
 
-/assigned
+GET /assigned
 lister les licences assignées
 soit dans la base de données celle dont user_uuid n'est pas vide
 
-/expired
+GET /expired
 lister les licences ayant expirées
 soit celle dont le exp est dans le passé, classées par ordre inverse de exp
 
-/pending
+GET /pending
 lister les licences en attente de paiement
 soit celle dont le paiement_status n'est pas à paid dans les sales
 
-/{uuid}/assign/{user_uuid}
+POST /{uuid}/assign/{user_uuid}
 affecte une licence à un utilisateur
 soit ajout à un groupe de l'utilisateur concerné
 
-/{uuid}/transfer/{user_id}
+POST /{uuid}/transfer/{user_id}
 transfert de la licence à un utilisateur
 retrait du groupe de l'ancien utilisateur
 ajout à un groupe du nouvel utilisateur
 
-/{uuid}/revoke
+POST /{uuid}/revoke
 retire la licence à un utilisateur
 retrait du groupe de l'utilisateur
 
-/{uuid}/renew
+POST /{uuid}/renew
 renouvelle une licence en se basant sur le produit (type_uuid). Le paiement déclenchera le renouvellement.
 
-/{uuid}/cancel
+POST /{uuid}/cancel
 passe auto_renew à false
 la licence reste active et affectée jusqu'à la fin de validité
 
-/{uuid}/activate
+POST /{uuid}/activate
 active les licences en lien avec la vente payée
 soit ajout à un groupe de l'utilisateur concerné
 
-/{uuid}/deactivate
+POST /{uuid}/deactivate
 désactive une licence
 soit retrait du groupe de l'utilisateur
 
-/sale
+GET /sale
 lister les ventes
 
-/sale/{sale_uuid}
+GET /sale/{sale_uuid}
 lister les licences associées à une vente
 
-/sale/{sale_uuid}/pay
+POST /sale/{sale_uuid}/pay
 marque la vente comme payée
 active les licences associées
 
-/sale/{sale_uuid}/cancel
+POST /sale/{sale_uuid}/cancel
 annule la vente

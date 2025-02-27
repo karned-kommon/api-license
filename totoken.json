@@ -1,0 +1,83 @@
+{
+  "exp": "1838317221",
+  "iat": "1738315721",
+  "jti": "faf37796-4152-4f5c-9be7-e80a0b8362ba",
+  "iss": "https://iam.karned.bzh/realms/Karned",
+  "aud": [
+    "karned",
+    "realm-management",
+    "app-recipe",
+    "account",
+    "api-recipe"
+  ],
+  "sub": "d3f48a42-0d1e-4270-8e8e-549251cd823d",
+  "typ": "Bearer",
+  "azp": "karned",
+  "sid": "9ab941a6-203f-48a8-8798-1f8c01e528dc",
+  "acr": "1",
+  "allowed-origins": [
+    "http://localhost:8501",
+    "http://localhost:8000"
+  ],
+  "realm_access": {
+    "roles": [
+      "offline_access",
+      "uma_authorization",
+      "default-roles-karned"
+    ]
+  },
+  "resource_access": {
+    "realm-management": {
+      "roles": [
+        "view-users",
+        "query-groups",
+        "query-users"
+      ]
+    },
+    "app-recipe": {
+      "roles": [
+        "read",
+        "update",
+        "create"
+      ]
+    },
+    "account": {
+      "roles": [
+        "manage-account",
+        "manage-account-links",
+        "view-profile"
+      ]
+    },
+    "api-recipe": {
+      "roles": [
+        "read",
+        "update",
+        "create",
+        "delete"
+      ]
+    }
+  },
+  "scope": "profile email",
+  "email_verified": "True",
+  "name": "Killian KOPP",
+  "preferred_username": "killian",
+  "given_name": "Killian",
+  "family_name": "KOPP",
+  "email": "killiankopp@gmail.com",
+  "client_id": "karned",
+  "username": "killian",
+  "token_type": "Bearer",
+  "active": "True",
+  "cached_time": "1738317153",
+  "licenses": [
+    {
+      "uuid": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      "type_uuid": "produit_uuid",
+      "nom": "Nom du produit",
+      "iat": "1678886400",
+      "exp": "18382570332",
+      "credential_uuid": "c1d2e3f4-g5h6-i7j8-k9l0-m1n2o3p4q5r",
+      "entity_uuid": "1234-5678-9101112-13141516"
+    }
+  ]
+}
