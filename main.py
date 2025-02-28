@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.security import HTTPBearer
 from fastapi.openapi.utils import get_openapi
-from middlewares.auth_service import TokenVerificationMiddleware
 from middlewares.licence_middleware import LicenceVerificationMiddleware
 from routers import items_router
 import logging
@@ -45,6 +44,5 @@ def custom_openapi():
 
 app.openapi = custom_openapi
 app.add_middleware(LicenceVerificationMiddleware)
-app.add_middleware(TokenVerificationMiddleware)
 
 app.include_router(items_router.router)
