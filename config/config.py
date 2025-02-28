@@ -12,11 +12,11 @@ REDIS_PORT = int(os.environ['REDIS_PORT'])
 REDIS_DB = int(os.environ['REDIS_DB'])
 REDIS_PASSWORD = os.environ['REDIS_PASSWORD']
 
-DB_HOST = 'localhost'
-DB_PORT = 27017
+DB_HOST = os.environ['DB_HOST']
+DB_PORT = int(os.environ['DB_PORT'])
 DB_URL = f"mongodb://{DB_HOST}:{DB_PORT}"
-DB_DATABASE = "local"
-DB_NAME = "license"
+DB_DATABASE = os.environ['DB_DATABASE']
+DB_NAME = os.environ['DB_NAME']
 ITEM_REPO = ItemRepositoryMongo(url=DB_URL, name=DB_DATABASE, collection=DB_NAME)
 
 UNPROTECTED_PATHS = ['/favicon.ico', '/docs', '/openapi.json']
