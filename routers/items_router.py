@@ -58,17 +58,11 @@ async def unassigned_items(
 @router.get("/assigned", status_code=status.HTTP_200_OK, response_model=list[Item])
 async def assigned_items(
         request: Request,
+        user_uuid: str | None = None,
         repo=Depends(get_repo)
 ):
-    now = int(datetime.now().timestamp())
-    entity_uuid = request.state.entity_uuid
     filters = {
-        "entity_uuid": {
-            "$eq": entity_uuid
-        },
-        "exp": {
-            "$lt": now
-        }
+        "user_uuid": user_uuid
     }
     return get_items(filters, repo)
 

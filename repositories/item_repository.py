@@ -41,13 +41,9 @@ class ItemRepositoryMongo(ItemRepository):
             return item
 
     def list_items(self, filters: dict) -> List[dict]:
-        logging.info(f"filters {filters}")
         query = filters
         result = self.db[self.collection].find(query)
-        logging.info(f"result {list(result)}")
-        result = list(result)
         items = list_item_serial(result)
-        logging.info(f"item_serial {items}")
         return items
 
     def update_item(self, uuid: str, item_update: Item) -> None:

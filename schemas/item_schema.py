@@ -23,6 +23,4 @@ def item_serial(item) -> dict:
 
 
 def list_item_serial(items) -> list:
-    logging.info(f"items {items}")
-
     return [item_serial(item) for item in items]

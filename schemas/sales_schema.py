@@ -1,10 +1,11 @@
+import logging
 from datetime import datetime
 
 
 def sales_serial(item) -> dict:
     return {
-        "uuid": str(item["_id"]),
-        "date": datetime.fromisoformat(item["date"]),
+        "uuid": str(item["uuid"]),
+        "date": item["date"],
         "status": str(item["status"])
     }
 
