@@ -1,0 +1,36 @@
+[
+  {
+    "uuid": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+    "type_uuid": "produit_uuid",
+    "sales": [
+      {
+        "sale_uuid": "f1g2h3i4-j5k6-l7m8-n9o0-p1q2r3s4t5u",
+        "status": "unpaid"
+      },
+      {
+        "sale_uuid": "x1y2z3a4-b5c6-d7e8-f9g0-h1i2j3k4l",
+        "status": "paid"
+      }
+    ],
+    "nom": "Nom du produit",
+    "iat": 1678886400,
+    "exp": 17382570332,
+    "user_uuid": "u1v2w3x4-y5z6-a7b8-c9d0-e1f2g3h4i5",
+    "historical": [
+      {
+        "iat": 1678000000,
+        "exp": 1680694400,
+        "user_id": "u1v2w3x4-y5z6-a7b8-c9d0-e1f2g3h4i5",
+        "manager_id": "m1n2o3p4-q5r6-s7t8-u9v0-w1x2y3z4a"
+      },
+      {
+        "iat": 1678500000,
+        "exp": 1681194400,
+        "user_id": "u6v7w8x9-y0z1-a2b3-c4d5-e6f7g8h9i",
+        "manager_id": "m6n7o8p9-q0r1-s2t3-u4v5-w6x7y8z9a"
+      }
+    ],
+    "auto_renew": true,
+    "credential_uuid": "c1d2e3f4-g5h6-i7j8-k9l0-m1n2o3p4q5r"
+  }
+]

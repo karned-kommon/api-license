@@ -13,6 +13,8 @@ Les opérations d'affectation et de désaffectation de licences seront réalisé
 Les licences seront stockées dans une base de données.
 Toutes les heures un airflow listera les licences expirées pour les désactiver.
 
+la base de données des licences sera uniquement sur la base de données de Koden
+
 ## todo
 connexion à keycloak en mode public avec le client_id et client_secret
 
@@ -74,7 +76,19 @@ le produit sera proposé en différentes déclinaisons : à la journée (1), au 
 - historical (historique des affectations : iat, exp, user_id, manager_id)
 - auto_renew
 - entities_uuid (entreprise / asso  uuid)
+- credential_uuid : si pas de credentials alors on récupère celui par défaut au niveau de l'entity
 
+
+## credential
+Une API distincte s'occupera des credentials.
+On stockera dans le credential le mappage "table / collection" s'il existe.
+Je présente une licence, j'obtiens le credential associé à cette licence.
+- uuid
+- name
+- description
+- url
+- mappage
+- entity_uuid
 
 ## Routes
 
@@ -132,11 +146,6 @@ POST /{uuid}/deactivate
 désactive une licence
 soit retrait du groupe de l'utilisateur
 
-
-
-
-
-à voir plus tard... sur une autre API ?
 
 GET /sale
 lister les ventes
