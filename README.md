@@ -75,7 +75,9 @@ le produit sera proposé en différentes déclinaisons : à la journée (1), au 
 - user_uuid
 - historical (historique des affectations : iat, exp, user_id, manager_id)
 - auto_renew
+- entities_uuid (entreprise / asso  uuid)
 - credential_uuid : si pas de credentials alors on récupère celui par défaut au niveau de l'entity
+
 
 ## credential
 Une API distincte s'occupera des credentials.
@@ -94,11 +96,7 @@ GET /purchase
 lister les plans de licences disponibles à l'achat
 soit dans la base product les uuid groupé par type, ordonné par net_price
 {
-    type_uuid,
-    type,
-    name, 
-    net_price,
-    value
+    name
 }
 
 POST /purchase/{type_uuid}
@@ -147,6 +145,7 @@ soit ajout à un groupe de l'utilisateur concerné
 POST /{uuid}/deactivate
 désactive une licence
 soit retrait du groupe de l'utilisateur
+
 
 GET /sale
 lister les ventes
