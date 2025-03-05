@@ -61,9 +61,11 @@ async def assigned_items(
         user_uuid: str | None = None,
         repo=Depends(get_repo)
 ):
-    filters = {
-        "user_uuid": user_uuid
-    }
+    filters = {}
+    if user_uuid:
+        filters = {
+            "user_uuid": user_uuid
+        }
     return get_items(filters, repo)
 
 
