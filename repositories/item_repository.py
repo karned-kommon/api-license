@@ -12,7 +12,7 @@ class ItemRepositoryMongo(ItemRepository):
     def __init__(self, url: str, database: str, collection: str):
         self.url = url
         self.database = database
-        self.collection_name = collection
+        self.collection = collection
         self.client = None
         self.db = None
 
