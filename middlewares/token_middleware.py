@@ -8,7 +8,7 @@ from fastapi import HTTPException
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import Response
-from config.config import API_NAME, KEYCLOAK_HOST, KEYCLOAK_REALM
+from config.config import API_NAME, KEYCLOAK_HOST, KEYCLOAK_REALM, KEYCLOAK_CLIENT_ID, KEYCLOAK_CLIENT_SECRET
 from decorators.log_time import log_time_async
 from services.inmemory_service import get_redis_api_db
 from utils.path_util import is_unprotected_path

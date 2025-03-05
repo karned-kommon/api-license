@@ -9,21 +9,21 @@ from schemas.item_schema import list_item_serial, item_serial
 
 
 class ItemRepositoryMongo(ItemRepository):
-
-    def __init__( self, url: str, name: str, collection: str ):
+    def __init__(self, url: str, database: str, collection: str):
         self.url = url
-        self.name = name
+        self.database = database
         self.collection = collection
         self.client = None
         self.db = None
 
-    def __enter__( self ):
+    def __enter__(self):
         self.client = MongoClient(self.url)
-        self.db = self.client[self.name]
+        self.db = self.client[self.database]
         return self
 
-    def __exit__( self, exc_type, exc_val, exc_tb ):
-        self.client.close()
+    def __exit__(self, exc_type, exc_value, traceback):
+        if self.client:
+            self.client.close()
 
     def create_item(self, item_create: Item) -> str:
         item_data = item_create.model_dump()
