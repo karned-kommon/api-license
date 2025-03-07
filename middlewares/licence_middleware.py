@@ -4,7 +4,7 @@ import time
 from fastapi import HTTPException
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
-from starlette.responses import Response
+from starlette.responses import JSONResponse, Response
 from decorators.log_time import log_time_async
 from middlewares.token_middleware import extract_token, get_token_info, refresh_cache_token
 from utils.path_util import is_unprotected_path
@@ -12,14 +12,15 @@ from utils.path_util import is_unprotected_path
 
 def extract_entity( request: Request ):
     token_info = get_token_info(extract_token(request))
-    if token_info is not None:
+    if token_info is None:
+        raise HTTPException(status_code=403, detail="Token not found")
+    else:
         licenses = token_info.get('licenses', [])
         license_uuid = extract_licence(request)
         for lic in licenses:
             if str(lic.get('uuid')) == str(license_uuid):
-                entity_uuid = lic.get('entity_uuid')
-                return entity_uuid
-    return None
+                return lic.get('entity_uuid')
+    raise HTTPException(status_code=500, detail="Entity not found")
 
 
 def extract_licence( request: Request ) -> str:
@@ -76,12 +77,17 @@ class LicenceVerificationMiddleware(BaseHTTPMiddleware):
     async def dispatch( self, request: Request, call_next ) -> Response:
         logging.info("LicenceVerificationMiddleware")
 
-        if not is_unprotected_path(request.url.path):
-            check_headers_licence(request)
-            licence = extract_licence(request)
-            check_licence(request, licence)
-            request.state.licence = licence
-            entity_uuid = extract_entity(request)
-            request.state.entity_uuid = entity_uuid
-        response = await call_next(request)
-        return response
+        try:
+            if not is_unprotected_path(request.url.path):
+                check_headers_licence(request)
+                licence = extract_licence(request)
+                logging.info(f"licence_uuid: {licence}")
+                check_licence(request, licence)
+                request.state.licence = licence
+                entity_uuid = extract_entity(request)
+                logging.info(f"entity_uuid: {entity_uuid}")
+                request.state.entity_uuid = entity_uuid
+            response = await call_next(request)
+            return response
+        except HTTPException as exc:
+            return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})

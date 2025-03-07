@@ -1,7 +1,9 @@
 import logging
+from urllib.request import Request
 
 from fastapi import HTTPException
 from models.item_model import Item
+from datetime import datetime
 
 def create_item(new_item, repository) -> str:
     try:
