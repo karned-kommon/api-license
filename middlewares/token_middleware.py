@@ -74,6 +74,7 @@ def is_token_active( token_info: dict ) -> bool:
 def read_cache_token( token: str ) -> dict:
     cached_result = r.get(token)
     if cached_result is not None:
+        logging.info("read cached token")
         return eval(cached_result)
 
 
@@ -81,6 +82,7 @@ def write_cache_token( token: str, cache_token: dict ):
     if cache_token.get("exp") is not None:
         ttl = cache_token.get("exp") - int(time.time())
         r.set(token, str(cache_token), ex=ttl)
+        logging.info("write cache token")
 
 
 def introspect_token( token: str ) -> dict:
@@ -92,6 +94,7 @@ def introspect_token( token: str ) -> dict:
     }
 
     response = httpx.post(url, data=data)
+    logging.info("introspect token")
     if response.status_code != 200:
         raise HTTPException(status_code=500, detail="Keycloak introspection failed")
     return response.json()
@@ -145,6 +148,7 @@ def refresh_cache_token( request: Request ):
 
 
 def store_token_info_in_state( state_token_info: dict, request: Request ):
+    logging.info(f"store token info state: {state_token_info}")
     request.state.token_info = state_token_info
 
 
