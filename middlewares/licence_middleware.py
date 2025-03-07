@@ -12,16 +12,12 @@ from utils.path_util import is_unprotected_path
 
 def extract_entity( request: Request ):
     token_info = get_token_info(extract_token(request))
-    logging.info(f"tokeninfo: {token_info}")
     if token_info is not None:
         licenses = token_info.get('licenses', [])
-        logging.info(f"licenses: {licenses}")
         license_uuid = extract_licence(request)
         for lic in licenses:
             if str(lic.get('uuid')) == str(license_uuid):
-                logging.info(f"license_uuid: {license_uuid}")
                 entity_uuid = lic.get('entity_uuid')
-                logging.info(f"entity_uuid: {entity_uuid}")
                 return entity_uuid
     return None
 

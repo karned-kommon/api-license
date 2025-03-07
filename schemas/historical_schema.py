@@ -2,8 +2,7 @@ def historical_serial(item) -> dict:
     return {
         "iat": int(item["iat"]),
         "exp": int(item["exp"]),
-        "user_uuid": str(item["user_uuid"]),
-        "manager_uuid": str(item["manager_uuid"])
+        "user_uuid": str(item["user_uuid"])
     }
 
 

@@ -14,8 +14,12 @@ def create_item(new_item, repository) -> str:
     return new_uuid
 
 def get_items(filters, repository) -> list[Item]:
+    logging.info("Getting all items")
+    #try:
+    items = repository.list_items(filters)
+    logging.info(f"Found {len(items)} items")
+    logging.info(items)
     try:
-        items = repository.list_items(filters)
         if not isinstance(items, list):
             raise TypeError("The method list_items did not return a list.")
     except Exception as e:

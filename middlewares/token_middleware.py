@@ -33,7 +33,7 @@ def filter_licences( licences: list) -> list:
         {
             "uuid": lic["uuid"],
             "type_uuid": lic["type_uuid"],
-            "nom": lic["nom"],
+            "name": lic["name"],
             "iat": lic["iat"],
             "exp": lic["exp"],
             "credential_uuid": lic["credential_uuid"],

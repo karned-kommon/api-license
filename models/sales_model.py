@@ -10,5 +10,5 @@ class PayementStatus(str, Enum):
 
 class SalesModel(BaseModel):
     uuid: str = Field(..., description='UUID de la vente')
-    date: datetime = Field(..., description='Date de la vente au format ISO 8601')
+    iat: int = Field(..., description="IAT")
     status: PayementStatus = Field(PayementStatus.UNPAID, description='Status de la vente')
