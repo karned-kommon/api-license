@@ -45,8 +45,8 @@ async def pending_items( request: Request, repo=Depends(get_repo) ):
         }
     }
     return get_items(filters, repo)
-
 """
+
 @router.get(path="/unassigned", status_code=status.HTTP_200_OK, response_model=list[Item])
 async def unassigned_items( request: Request, repo=Depends(get_repo) ):
     now = int(datetime.now().timestamp())
@@ -58,6 +58,7 @@ async def unassigned_items( request: Request, repo=Depends(get_repo) ):
         "exp": {"$gt": now},
     }
     return get_items(filters, repo)
+  
 """"
 
 @router.post(path="/assign/{uuid}", status_code=status.HTTP_201_CREATED)
