@@ -4,4 +4,3 @@ class HistoricalModel(BaseModel):
     iat: int = Field(..., description="IAT")
     exp: int = Field(..., description="Exp")
     user_uuid: str = Field(..., description="User UUID")
-    manager_uuid: str = Field(..., description="Manager UUID")

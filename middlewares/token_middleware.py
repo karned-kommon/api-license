@@ -2,12 +2,13 @@ import logging
 import os
 import time
 from datetime import datetime, timezone
+from typing import Any
 
 import httpx
 from fastapi import HTTPException
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
-from starlette.responses import Response
+from starlette.responses import JSONResponse, Response
 from config.config import API_NAME, KEYCLOAK_HOST, KEYCLOAK_REALM, KEYCLOAK_CLIENT_ID, KEYCLOAK_CLIENT_SECRET
 from decorators.log_time import log_time_async
 from services.inmemory_service import get_redis_api_db
@@ -23,7 +24,6 @@ def get_licences( token: str ) -> list:
     response = httpx.get(url, headers={"Authorization": f"Bearer {token}"})
     if response.status_code != 200:
         raise HTTPException(status_code=500, detail="Licences request failed")
-
     return response.json()
 
 def filter_licences( licences: list) -> list:
@@ -33,7 +33,7 @@ def filter_licences( licences: list) -> list:
         {
             "uuid": lic["uuid"],
             "type_uuid": lic["type_uuid"],
-            "nom": lic["nom"],
+            "name": lic["name"],
             "iat": lic["iat"],
             "exp": lic["exp"],
             "credential_uuid": lic["credential_uuid"],
@@ -46,7 +46,7 @@ def filter_licences( licences: list) -> list:
 
 def generate_state_info( token_info: dict ) -> dict:
     return {
-        "user_id": token_info.get("sub"),
+        "user_uuid": token_info.get("sub"),
         "user_display_name": token_info.get("preferred_username"),
         "user_email": token_info.get("email"),
         "user_audiences": token_info.get("aud"),
@@ -71,7 +71,7 @@ def is_token_active( token_info: dict ) -> bool:
     return False
 
 
-def read_cache_token( token: str ) -> dict:
+def read_cache_token( token: str ) -> Any | None:
     cached_result = r.get(token)
     if cached_result is not None:
         return eval(cached_result)
@@ -87,8 +87,8 @@ def introspect_token( token: str ) -> dict:
     url = f"{KEYCLOAK_HOST}/realms/{KEYCLOAK_REALM}/protocol/openid-connect/token/introspect"
     data = {
         "token": token,
-        "client_id": os.environ.get("KEYCLOAK_CLIENT_ID"),
-        "client_secret": os.environ.get("KEYCLOAK_CLIENT_SECRET")
+        "client_id": KEYCLOAK_CLIENT_ID,
+        "client_secret": KEYCLOAK_CLIENT_SECRET
     }
 
     response = httpx.post(url, data=data)
@@ -146,6 +146,7 @@ def refresh_cache_token( request: Request ):
 
 def store_token_info_in_state( state_token_info: dict, request: Request ):
     request.state.token_info = state_token_info
+    request.state.user_uuid = state_token_info.get("user_uuid")
 
 
 def check_headers_token( request: Request ):
@@ -167,12 +168,18 @@ class TokenVerificationMiddleware(BaseHTTPMiddleware):
 
     @log_time_async
     async def dispatch( self, request: Request, call_next ) -> Response:
-        if not is_unprotected_path(request.url.path):
-            check_headers_token(request)
-            token = extract_token(request)
-            token_info = get_token_info(token)
-            check_token(token_info)
-            state_token_info = generate_state_info(token_info)
-            store_token_info_in_state(state_token_info, request)
-        response = await call_next(request)
-        return response
+        logging.info("TokenVerificationMiddleware")
+
+        try:
+            if not is_unprotected_path(request.url.path):
+                check_headers_token(request)
+                token = extract_token(request)
+                logging.info(f"token: {token}")
+                token_info = get_token_info(token)
+                check_token(token_info)
+                state_token_info = generate_state_info(token_info)
+                store_token_info_in_state(state_token_info, request)
+            response = await call_next(request)
+            return response
+        except HTTPException as exc:
+            return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})

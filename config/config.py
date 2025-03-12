@@ -19,7 +19,7 @@ DB_PORT = os.getenv('DB_PORT', '27017')
 DB_USER = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_DATABASE = os.getenv('DB_DATABASE', 'karned')
-DB_COLLECTION = os.getenv('DB_COLLECTION', 'licenses')
+DB_COLLECTION = os.getenv('DB_COLLECTION', 'license')
 
 if DB_USER and DB_PASSWORD:
     DB_URL = f"mongodb://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/"

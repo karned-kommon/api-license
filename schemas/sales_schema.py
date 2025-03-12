@@ -5,7 +5,7 @@ from datetime import datetime
 def sales_serial(item) -> dict:
     return {
         "uuid": str(item["uuid"]),
-        "date": item["date"],
+        "iat": int(item["iat"]),
         "status": str(item["status"])
     }
 
