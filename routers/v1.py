@@ -7,6 +7,8 @@ from config.config import API_TAG_NAME, ITEM_REPO
 from models.item_model import Item
 from services.items_service import get_item, get_items
 
+VERSION = "v1"
+api_group_name = f"/{API_TAG_NAME}/{VERSION}/"
 
 def get_repo():
     with ITEM_REPO as repo:
@@ -14,7 +16,8 @@ def get_repo():
 
 
 router = APIRouter(
-    tags=[API_TAG_NAME]
+    tags=[api_group_name],
+    prefix=f"/licence/{VERSION}"
 )
 
 """
