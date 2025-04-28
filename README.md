@@ -1,4 +1,42 @@
-# api-licence
+# API License
+
+## Documentation
+
+This project includes comprehensive documentation built with MkDocs. The documentation covers the API's endpoints, authentication, models, and installation instructions.
+
+### Viewing Documentation Locally
+
+To view the documentation locally:
+
+1. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. Serve the documentation:
+   ```bash
+   mkdocs serve
+   ```
+
+3. Open your browser and navigate to `http://localhost:8000`
+
+### Online Documentation
+
+The documentation is automatically deployed to GitHub Pages when changes are pushed to the main branch. You can access the online documentation at:
+
+[https://USERNAME.github.io/api-license/](https://USERNAME.github.io/api-license/)
+
+### Building Documentation
+
+To build the documentation without serving it:
+
+```bash
+mkdocs build
+```
+
+This will create a `site` directory with the static HTML documentation.
+
+## API Overview
 
 sur Keycloak
 - créer un client (il s'agira d'une app ou d'une api)
