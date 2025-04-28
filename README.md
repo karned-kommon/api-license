@@ -24,7 +24,7 @@ To view the documentation locally:
 
 The documentation is automatically deployed to GitHub Pages when changes are pushed to the main branch. You can access the online documentation at:
 
-[https://USERNAME.github.io/api-license/](https://USERNAME.github.io/api-license/)
+[https://karned-kommon.github.io/api-license/](https://karned-kommon.github.io/api-license/)
 
 ### Building Documentation
 

@@ -1,7 +1,7 @@
 site_name: API License Documentation
 site_description: Documentation for the License Management API
 site_author: Karned
-site_url: https://USERNAME.github.io/api-license/
+site_url: https://karned-kommon.github.io/api-license/
 
 theme:
   name: material
