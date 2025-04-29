@@ -1,36 +1,30 @@
 # API License Documentation
 
-Welcome to the API License documentation. This API provides a comprehensive solution for managing licenses within your application ecosystem.
+Welcome to the API License service documentation. This documentation provides comprehensive information about the API License service, its features, and how to use it.
 
 ## Overview
 
-The API License is a RESTful API built with FastAPI that allows you to:
+The API License service is a part of the Karned Kommon platform that handles license management for various products and services. It provides secure license creation, assignment, and validation.
 
-- Manage licenses for users and entities
-- Track license assignments and usage
-- Handle license expiration and renewal
-- Verify license validity
+## Features
 
-## Authentication
+- Secure license storage and management
+- License assignment and revocation
+- License validation and verification
+- License renewal and expiration management
 
-The API uses two levels of authentication:
+## Futures features
+- Rate limiting and throttling
+- Audit logging
 
-1. **Token Authentication**: JWT Bearer tokens for user authentication
-2. **License Verification**: License headers to verify license validity
+## Quick Links
 
-See the [Authentication](authentication.md) section for more details.
+- [Getting Started](getting-started.md) - Learn how to set up and start using the API License service
+- [API Overview](api/overview.md) - Detailed information about the API endpoints
+- [Development](development/setup.md) - Information for developers who want to contribute to the project
+- [API Gateway](https://api.karned.bzh) - Access the API Gateway
+- [Swagger Documentation](https://api.karned.bzh/license/docs) - Interactive API documentation
 
-## Getting Started
+## Support
 
-To get started with the API License, check out the [Installation](installation.md) guide.
-
-For a comprehensive overview of the API endpoints, see the [API Overview](api-overview.md) section.
-
-## API Structure
-
-The API is organized into the following main components:
-
-- **Endpoints**: The available API endpoints for interacting with licenses
-- **Models**: Data structures used by the API
-- **Authentication**: How to authenticate with the API
-- **Installation**: How to set up and run the API
+If you need help or have questions, please contact the Karned team.
