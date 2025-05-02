@@ -33,7 +33,7 @@ If you need to deploy the documentation manually, you can do so using the MkDocs
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Karned/Kommon/api-license.git
+   git clone https://github.com/karned-kommon/api-license.git
    cd api-license
    ```
 
