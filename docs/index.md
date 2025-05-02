@@ -13,7 +13,7 @@ The API License service is a part of the Karned Kommon platform that handles lic
 - License validation and verification
 - License renewal and expiration management
 
-## Futures features
+## Future features
 - Rate limiting and throttling
 - Audit logging
 
