@@ -111,10 +111,8 @@ async def read_item( request: Request, uuid: str, repo=Depends(get_repo) ):
 @router.get(path="/mine", status_code=status.HTTP_200_OK, response_model=list[Item])
 async def get_mine( request: Request, repo=Depends(get_repo) ):
     now = int(datetime.now().timestamp())
-    user_uuid = request.state.user_uuid
-    entity_uuid = request.state.entity_uuid
+    user_uuid = getattr(request.state, 'user_uuid', None)
     filters = {
-        "entity_uuid": entity_uuid,
         "iat": { "$lt": now },
         "exp": { "$gt": now },
         "user_uuid": user_uuid
