@@ -4,6 +4,8 @@ from repositories.item_repository import ItemRepositoryMongo
 API_NAME = os.environ['API_NAME']
 API_TAG_NAME = os.environ['API_TAG_NAME']
 
+URL_API_GATEWAY = os.environ['URL_API_GATEWAY']
+
 KEYCLOAK_HOST = os.environ['KEYCLOAK_HOST']
 KEYCLOAK_REALM = os.environ['KEYCLOAK_REALM']
 KEYCLOAK_CLIENT_ID = os.environ['KEYCLOAK_CLIENT_ID']
@@ -28,4 +30,5 @@ else:
 
 ITEM_REPO = ItemRepositoryMongo(url=DB_URL, database=DB_DATABASE, collection=DB_COLLECTION)
 
-UNPROTECTED_PATHS = ['/favicon.ico', '/docs', '/licence/openapi.json']
+UNPROTECTED_PATHS = ['/favicon.ico', '/docs', '/openapi.json']
+UNLICENSED_PATHS = ['/license/v1/mine']

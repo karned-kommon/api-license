@@ -14,7 +14,6 @@ def item_serial(item) -> dict:
         "exp": int(item["exp"]),
         "user_uuid": str(item["user_uuid"]),
         "entity_uuid": str(item["entity_uuid"]),
-        "credential_uuid": str(item["credential_uuid"]),
         "historical": list_historical_serial(item["historical"]),
         "sales": list_sales_serial(item["sales"])
     }

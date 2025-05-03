@@ -14,7 +14,6 @@ class Item(BaseModel):
     exp: int = Field(..., description="License exp")
     user_uuid: str = Field(..., description="User UUID")
     entity_uuid: str  = Field(..., description="Entity UUID")
-    credential_uuid: str = Field(..., description="Credential UUID")
     historical: List[HistoricalModel] = Field(..., description="License assignment historical data")
     sales: List[SalesModel] = Field(..., description="License sales data")
 
