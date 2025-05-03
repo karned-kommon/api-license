@@ -17,7 +17,7 @@ r = get_redis_api_db()
 
 
 def extract_licence(request: Request) -> str:
-    return request.headers.get('licence')
+    return request.headers.get('X-License-Key')
 
 
 def is_headers_licence_present(request: Request) -> bool:
