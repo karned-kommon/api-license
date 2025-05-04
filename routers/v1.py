@@ -7,6 +7,8 @@ from config.config import API_TAG_NAME, ITEM_REPO
 from models.item_model import Item
 from services.items_service import get_item, get_items
 
+VERSION = "v1"
+api_group_name = f"/{API_TAG_NAME}/{VERSION}/"
 
 def get_repo():
     with ITEM_REPO as repo:
@@ -14,7 +16,8 @@ def get_repo():
 
 
 router = APIRouter(
-    tags=[API_TAG_NAME]
+    tags=[api_group_name],
+    prefix=f"/license/{VERSION}"
 )
 
 """
@@ -108,10 +111,8 @@ async def read_item( request: Request, uuid: str, repo=Depends(get_repo) ):
 @router.get(path="/mine", status_code=status.HTTP_200_OK, response_model=list[Item])
 async def get_mine( request: Request, repo=Depends(get_repo) ):
     now = int(datetime.now().timestamp())
-    user_uuid = request.state.user_uuid
-    entity_uuid = request.state.entity_uuid
+    user_uuid = getattr(request.state, 'user_uuid', None)
     filters = {
-        "entity_uuid": entity_uuid,
         "iat": { "$lt": now },
         "exp": { "$gt": now },
         "user_uuid": user_uuid
