@@ -30,5 +30,5 @@ else:
 
 ITEM_REPO = ItemRepositoryMongo(url=DB_URL, database=DB_DATABASE, collection=DB_COLLECTION)
 
-UNPROTECTED_PATHS = ['/favicon.ico', '/docs', '/openapi.json']
+UNPROTECTED_PATHS = ['/favicon.ico', '/docs', '/license/openapi.json']
 UNLICENSED_PATHS = ['/license/v1/mine']
