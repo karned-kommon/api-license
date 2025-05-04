@@ -12,7 +12,7 @@ logging.info("Starting API License")
 
 bearer_scheme = HTTPBearer()
 
-app = FastAPI(openapi_url="/licence/openapi.json")
+app = FastAPI(openapi_url="/license/openapi.json")
 def custom_openapi():
     if app.openapi_schema:
         return app.openapi_schema
