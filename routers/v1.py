@@ -21,35 +21,34 @@ router = APIRouter(
     prefix=f"/license/{VERSION}"
 )
 
-"""
-@router.get(path="/purchase", status_code=status.HTTP_200_OK, response_model=list[Item])
-async def purchase(request: Request, name: str | None = None, repo=Depends(get_repo) ):
-    filters = {
-        "name": name
-    }
-    return get_items(filters, repo)
-
-
-@router.post(path="/purchase/{type_uuid}", status_code=status.HTTP_201_CREATED)
-async def create_license( request: Request, repo=Depends(get_repo) ):
-    license_uuid = create_license(repo)
-
-    return {"license UUID": license_uuid}
-
-
-@router.get(path="/pending", status_code=status.HTTP_200_OK, response_model=list[Item])
-async def pending_items( request: Request, repo=Depends(get_repo) ):
-    now = int(datetime.now().timestamp())
-    entity_uuid = request.state.entity_uuid
-    filters = {
-        "entity_uuid": {
-            "$eq": entity_uuid
-        }, "exp": {
-            "$lt": now
-        }
-    }
-    return get_items(filters, repo)
-"""
+# Commented out endpoints
+# @router.get(path="/purchase", status_code=status.HTTP_200_OK, response_model=list[Item])
+# async def purchase(request: Request, name: str | None = None, repo=Depends(get_repo) ):
+#     filters = {
+#         "name": name
+#     }
+#     return get_items(filters, repo)
+#
+#
+# @router.post(path="/purchase/{type_uuid}", status_code=status.HTTP_201_CREATED)
+# async def create_license( request: Request, repo=Depends(get_repo) ):
+#     license_uuid = create_license(repo)
+#
+#     return {"license UUID": license_uuid}
+#
+#
+# @router.get(path="/pending", status_code=status.HTTP_200_OK, response_model=list[Item])
+# async def pending_items( request: Request, repo=Depends(get_repo) ):
+#     now = int(datetime.now().timestamp())
+#     entity_uuid = request.state.entity_uuid
+#     filters = {
+#         "entity_uuid": {
+#             "$eq": entity_uuid
+#         }, "exp": {
+#             "$lt": now
+#         }
+#     }
+#     return get_items(filters, repo)
 
 @router.get(path="/purchase", status_code=status.HTTP_200_OK, response_model=SuccessResponse[list[Item]])
 async def purchase(request: Request, name: str | None = None, repo=Depends(get_repo) ):
@@ -72,13 +71,10 @@ async def unassigned_items(request: Request, repo=Depends(get_repo)):
     items = get_items(filters, repo)
     return create_success_response(data=items)
 
-""""
+# @router.post(path="/assign/{uuid}", status_code=status.HTTP_201_CREATED)
+# async def assign_license( request: Request, repo=Depends(get_repo) ):
+#     return {"status": "WIP"}
 
-@router.post(path="/assign/{uuid}", status_code=status.HTTP_201_CREATED)
-async def assign_license( request: Request, repo=Depends(get_repo) ):
-    return {"status": "WIP"}
-
-"""
 @router.get(path="/assigned", status_code=status.HTTP_200_OK, response_model=SuccessResponse[list[Item]])
 async def assigned_items( request: Request, repo=Depends(get_repo) ):
     now = int(datetime.now().timestamp())
@@ -92,12 +88,10 @@ async def assigned_items( request: Request, repo=Depends(get_repo) ):
     items = get_items(filters, repo)
     return create_success_response(data=items)
 
-"""
-@router.post(path="/unassign/{uuid}", status_code=status.HTTP_201_CREATED)
-async def unassign_license( request: Request, repo=Depends(get_repo) ):
-    return {"status": "WIP"}
+# @router.post(path="/unassign/{uuid}", status_code=status.HTTP_201_CREATED)
+# async def unassign_license( request: Request, repo=Depends(get_repo) ):
+#     return {"status": "WIP"}
 
-"""
 @router.get(path="/expired", status_code=status.HTTP_200_OK, response_model=SuccessResponse[list[Item]])
 async def expired_items(request: Request, repo=Depends(get_repo)):
     now = int(datetime.now().timestamp())

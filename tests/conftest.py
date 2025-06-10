@@ -22,6 +22,15 @@ def cleanup_environment():
     """Restore original environment variables after all tests."""
     yield
 
+    # Save pytest environment variables that might be added during test execution
+    pytest_vars = {}
+    for key in os.environ:
+        if key.startswith('PYTEST_'):
+            pytest_vars[key] = os.environ[key]
+
     # Restore original environment variables
     os.environ.clear()
     os.environ.update(original_env)
+
+    # Restore pytest environment variables
+    os.environ.update(pytest_vars)
