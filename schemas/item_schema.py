@@ -15,7 +15,10 @@ def item_serial(item) -> dict:
         "user_uuid": str(item["user_uuid"]),
         "entity_uuid": str(item["entity_uuid"]),
         "historical": list_historical_serial(item["historical"]),
-        "sales": list_sales_serial(item["sales"])
+        "sales": list_sales_serial(item["sales"]),
+        "api_roles": item.get("api_roles"),
+        "app_roles": item.get("app_roles"),
+        "apps": item.get("apps")
     }
 
 
