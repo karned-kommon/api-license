@@ -51,7 +51,7 @@ async def pending_items( request: Request, repo=Depends(get_repo) ):
 """
 
 @router.get(path="/unassigned", status_code=status.HTTP_200_OK, response_model=list[Item])
-async def unassigned_items( request: Request, repo=Depends(get_repo) ):
+async def unassigned_items(request: Request, repo=Depends(get_repo)):
     now = int(datetime.now().timestamp())
     entity_uuid = request.state.entity_uuid
     filters = {
@@ -60,8 +60,13 @@ async def unassigned_items( request: Request, repo=Depends(get_repo) ):
         "iat": {"$lt": now},
         "exp": {"$gt": now},
     }
-    return get_items(filters, repo)
-  
+    items = get_items(filters, repo)
+    return {
+        "status": "success",
+        "data": items,
+        "message": "Operation completed successfully"
+    }
+
 """"
 
 @router.post(path="/assign/{uuid}", status_code=status.HTTP_201_CREATED)
@@ -88,7 +93,7 @@ async def unassign_license( request: Request, repo=Depends(get_repo) ):
 
 """
 @router.get(path="/expired", status_code=status.HTTP_200_OK, response_model=list[Item])
-async def expired_items( request: Request, repo=Depends(get_repo) ):
+async def expired_items(request: Request, repo=Depends(get_repo)):
     now = int(datetime.now().timestamp())
     entity_uuid = request.state.entity_uuid
     filters = {
@@ -96,20 +101,33 @@ async def expired_items( request: Request, repo=Depends(get_repo) ):
         "iat": {"$lt": now},
         "exp": {"$lt": now}
     }
-    return get_items(filters, repo)
-
+    items = get_items(filters, repo)
+    return {
+        "status": "success",
+        "data": items,
+        "message": "Operation completed successfully"
+    }
 
 @router.get(path="/license/{uuid}", status_code=status.HTTP_200_OK, response_model=Item)
-async def read_item( request: Request, uuid: str, repo=Depends(get_repo) ):
+async def read_item(request: Request, uuid: str, repo=Depends(get_repo)):
     logging.info(f"read item {uuid}")
     item = get_item(uuid, repo)
     if item is None:
-        raise HTTPException(status_code=404, detail="Item not found")
-    return item
-
+        return {
+            "status": "error",
+            "error": {
+                "code": "NOT_FOUND",
+                "message": "Item not found"
+            }
+        }
+    return {
+        "status": "success",
+        "data": item,
+        "message": "Operation completed successfully"
+    }
 
 @router.get(path="/mine", status_code=status.HTTP_200_OK, response_model=list[Item])
-async def get_mine( request: Request, repo=Depends(get_repo) ):
+async def get_mine(request: Request, repo=Depends(get_repo)):
     now = int(datetime.now().timestamp())
     user_uuid = getattr(request.state, 'user_uuid', None)
     filters = {
@@ -118,4 +136,9 @@ async def get_mine( request: Request, repo=Depends(get_repo) ):
         "user_uuid": user_uuid
     }
     logging.info(f"filters: {filters}")
-    return get_items(filters, repo)
+    items = get_items(filters, repo)
+    return {
+        "status": "success",
+        "data": items,
+        "message": "Operation completed successfully"
+    }
