@@ -1,10 +1,11 @@
 import logging
 from datetime import datetime
 
-from fastapi import APIRouter, Depends, HTTPException, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 
 from config.config import API_TAG_NAME, ITEM_REPO
 from models.item_model import Item
+from models.response_model import SuccessResponse, create_success_response
 from services.items_service import get_item, get_items
 
 VERSION = "v1"
@@ -50,7 +51,15 @@ async def pending_items( request: Request, repo=Depends(get_repo) ):
     return get_items(filters, repo)
 """
 
-@router.get(path="/unassigned", status_code=status.HTTP_200_OK, response_model=list[Item])
+@router.get(path="/purchase", status_code=status.HTTP_200_OK, response_model=SuccessResponse[list[Item]])
+async def purchase(request: Request, name: str | None = None, repo=Depends(get_repo) ):
+    filters = {
+        "name": name
+    }
+    items = get_items(filters, repo)
+    return create_success_response(data=items)
+
+@router.get(path="/unassigned", status_code=status.HTTP_200_OK, response_model=SuccessResponse[list[Item]])
 async def unassigned_items(request: Request, repo=Depends(get_repo)):
     now = int(datetime.now().timestamp())
     entity_uuid = request.state.entity_uuid
@@ -61,11 +70,7 @@ async def unassigned_items(request: Request, repo=Depends(get_repo)):
         "exp": {"$gt": now},
     }
     items = get_items(filters, repo)
-    return {
-        "status": "success",
-        "data": items,
-        "message": "Operation completed successfully"
-    }
+    return create_success_response(data=items)
 
 """"
 
@@ -74,7 +79,7 @@ async def assign_license( request: Request, repo=Depends(get_repo) ):
     return {"status": "WIP"}
 
 """
-@router.get(path="/assigned", status_code=status.HTTP_200_OK, response_model=list[Item])
+@router.get(path="/assigned", status_code=status.HTTP_200_OK, response_model=SuccessResponse[list[Item]])
 async def assigned_items( request: Request, repo=Depends(get_repo) ):
     now = int(datetime.now().timestamp())
     entity_uuid = request.state.entity_uuid
@@ -84,7 +89,8 @@ async def assigned_items( request: Request, repo=Depends(get_repo) ):
         "iat": { "$lt": now },
         "exp": { "$gt": now },
     }
-    return get_items(filters, repo)
+    items = get_items(filters, repo)
+    return create_success_response(data=items)
 
 """
 @router.post(path="/unassign/{uuid}", status_code=status.HTTP_201_CREATED)
@@ -92,7 +98,7 @@ async def unassign_license( request: Request, repo=Depends(get_repo) ):
     return {"status": "WIP"}
 
 """
-@router.get(path="/expired", status_code=status.HTTP_200_OK, response_model=list[Item])
+@router.get(path="/expired", status_code=status.HTTP_200_OK, response_model=SuccessResponse[list[Item]])
 async def expired_items(request: Request, repo=Depends(get_repo)):
     now = int(datetime.now().timestamp())
     entity_uuid = request.state.entity_uuid
@@ -102,31 +108,17 @@ async def expired_items(request: Request, repo=Depends(get_repo)):
         "exp": {"$lt": now}
     }
     items = get_items(filters, repo)
-    return {
-        "status": "success",
-        "data": items,
-        "message": "Operation completed successfully"
-    }
+    return create_success_response(data=items)
 
-@router.get(path="/license/{uuid}", status_code=status.HTTP_200_OK, response_model=Item)
+@router.get(path="/license/{uuid}", status_code=status.HTTP_200_OK, response_model=SuccessResponse[Item])
 async def read_item(request: Request, uuid: str, repo=Depends(get_repo)):
     logging.info(f"read item {uuid}")
     item = get_item(uuid, repo)
     if item is None:
-        return {
-            "status": "error",
-            "error": {
-                "code": "NOT_FOUND",
-                "message": "Item not found"
-            }
-        }
-    return {
-        "status": "success",
-        "data": item,
-        "message": "Operation completed successfully"
-    }
+        return Response(status_code=404)
+    return create_success_response(data=item)
 
-@router.get(path="/mine", status_code=status.HTTP_200_OK, response_model=list[Item])
+@router.get(path="/mine", status_code=status.HTTP_200_OK, response_model=SuccessResponse[list[Item]])
 async def get_mine(request: Request, repo=Depends(get_repo)):
     now = int(datetime.now().timestamp())
     user_uuid = getattr(request.state, 'user_uuid', None)
@@ -137,8 +129,4 @@ async def get_mine(request: Request, repo=Depends(get_repo)):
     }
     logging.info(f"filters: {filters}")
     items = get_items(filters, repo)
-    return {
-        "status": "success",
-        "data": items,
-        "message": "Operation completed successfully"
-    }
+    return create_success_response(data=items)
