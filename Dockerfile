@@ -35,6 +35,8 @@ ENV DB_HOST="" \
     DB_DATABASE="" \
     DB_COLLECTION=""
 
+ENV URL_API_GATEWAY=""
+
 WORKDIR /app
 
 RUN groupadd -r appgroup && useradd -r -g appgroup appuser
