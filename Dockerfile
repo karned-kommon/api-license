@@ -15,8 +15,8 @@ FROM python:3.12-slim
 ENV PYTHONUNBUFFERED=True \
     PORT=8000 \
     WORKERS=1 \
-    API_NAME=api-recipe \
-    API_TAG_NAME=recipes
+    API_NAME=api-license \
+    API_TAG_NAME=license
 
 ENV KEYCLOAK_HOST="" \
     KEYCLOAK_REALM="" \
